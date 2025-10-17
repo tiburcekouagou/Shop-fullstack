@@ -1,4 +1,13 @@
-const crypto = require('crypto');
+const bcrypt = require('bcrypt')
 
-console.log(crypto.randomBytes(64).toString('hex'))
-console.log("UUID", crypto.randomUUID());
+const rounds = 16;
+const password = 'a';
+
+(async () => {
+    const salt = await bcrypt.genSalt(rounds);
+    console.log({salt})
+    const hash = await bcrypt.hash(password, salt);
+    console.log({hash})
+    const match = await bcrypt.compare(password, hash);
+    console.log({match})
+})();
