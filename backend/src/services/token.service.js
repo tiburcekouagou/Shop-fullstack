@@ -62,16 +62,23 @@ function timeToMs(time) {
 }
 
 async function renewRefreshToken(jti, token) {
-  // vérifier si le jti exist dans la BDD
   const rt = await RefreshToken.findOne({ jti });
-
-  // si le token n'existe pas ou a été révoqué
-  if (!rt || rt.revoked) throw new Error("Token invalide");
-
+  if (!rt) throw new Error("Token invalide");
+  if (rt.revoked) throw new Error("Token révoqué");
+  
+  
+  if (rt.expiresAt && rt.expiresAt < new Date()) {
+    rt.revoked = true; // révoquer l'ancien token
+    await rt.save();
+    throw new Error("Token expiré");
+  }
+  
   // vérifier que le token correspond au hash stocké
   const isTokenValid = await verifyHash(rt.tokenHash, token);
-
-  if (!isTokenValid) throw new Error("Token invalide");
+  if (!isTokenValid) {
+    await RefreshToken.updateMany({ user: rt.user, revoked: true }); // révoquer le token
+    throw new Error("Token invalide (possible vol)");
+  }
 
   rt.revoked = true; // révoquer l'ancien token
   await rt.save();
