@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node --watch app.js",
-    "start": "nodemon src/server.js"
+    "start": "nodemon src/server.js",
+    "generate:secrets": "node scripts/generate-secrets.js"
   },
   "keywords": [],
   "author": "",
