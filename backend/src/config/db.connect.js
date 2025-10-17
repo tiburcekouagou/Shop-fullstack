@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
-const MONGOOSE_URI = process.env.MONGOOSE_URI;
+const config = require("./index.js");
 
 const connectDatabase = async () => {
     try { 
-        await mongoose.connect(MONGOOSE_URI)
+        await mongoose.connect(config.mongodbUri)
     } catch (error) {
         console.error('Erreur survenue lors de la connexion: ', error.message);
     }
