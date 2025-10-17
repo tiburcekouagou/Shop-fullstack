@@ -7,6 +7,5 @@ import DefaultLayout from '@/layouts/defaultLayout.vue';
 <template>
   <DefaultLayout />
   <main class="container mx-auto mt-10 px-6">
-    <TheWelcome />
   </main>
 </template>

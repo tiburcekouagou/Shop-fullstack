@@ -10,7 +10,9 @@
           <label class="block text-gray-600 mb-1">Adresse e-mail</label>
           <input v-model="form.email" type="email"
             class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-200"
-            placeholder="exemple@email.com" required />
+            placeholder="exemple@email.com" required
+            autocomplete="email"
+            />
         </div>
 
         <!-- Champ mot de passe -->
@@ -18,7 +20,9 @@
           <label class="block text-gray-600 mb-1">Mot de passe</label>
           <input v-model="form.password" type="password"
             class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-200"
-            placeholder="Votre mot de passe" required />
+            placeholder="Votre mot de passe" required
+            autocomplete="current-password"
+             />
         </div>
 
         <!-- Bouton connexion -->
@@ -29,7 +33,7 @@
         <!-- Lien vers inscription -->
         <p class="text-center text-gray-500 mt-4">
           Pas encore de compte ?
-          <router-link to="/register" class="text-blue-600 hover:underline">
+          <router-link :to="{name: 'register'}" class="text-blue-600 hover:underline">
             Créez-en un
           </router-link>
         </p>
@@ -47,9 +51,10 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import DefaultLayout from '@/layouts/defaultLayout.vue'
-import { login } from '@/api/auth.api'
+import { useAuth } from '../../../composables/auth'
 
 const router = useRouter()
+const auth = useAuth()
 
 const form = ref({
   email: '',
@@ -59,8 +64,8 @@ const form = ref({
 const errorMessage = ref('')
 
 const handleLogin = async () => {
-  await login(form.value)
+  await auth.login(form.value)
   // Vérifie les identifiants de connexion
-  router.push('/dashboard')
+  router.push({name: 'adminboard'})
 }
 </script>

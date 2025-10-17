@@ -21,9 +21,9 @@
 
 <script setup>
 const menuItems = [
-  { key: 'dashboard', label: 'Dashboard', to: '/dashboard' },
-  { key: 'products', label: 'Produits', to: '/products' },
-  { key: 'categories', label: 'Catégories', to: '/categories' },
-  { key: 'users', label: 'Utilisateurs', to: '/users' }
+  { key: 'dashboard', label: 'Dashboard', to: {name: 'adminboard'} },
+  { key: 'products', label: 'Produits', to: {name: 'products'} },
+  { key: 'categories', label: 'Catégories', to: {name: 'categories'} },
+  { key: 'users', label: 'Utilisateurs', to: { name: 'users'} }
 ]
 </script>

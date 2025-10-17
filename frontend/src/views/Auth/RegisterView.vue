@@ -45,7 +45,7 @@
         <!-- Lien -->
         <p class="text-center text-gray-500 mt-4">
           Déjà un compte ?
-          <router-link to="/login" class="text-green-600 hover:underline">
+          <router-link :to="{name: 'login'}" class="text-green-600 hover:underline">
             Connectez-vous
           </router-link>
         </p>
@@ -61,14 +61,9 @@
 
 <script setup>
 import { ref } from 'vue'
-import axios from 'axios'
-import { useRouter } from 'vue-router'
 import DefaultLayout from '@/layouts/defaultLayout.vue'
-import axiosClient from '@/api/axiosClient'
 import { register } from '@/api/auth.api'
 
-const router = useRouter()
-const apiUrl = import.meta.env.VITE_API_URL
 
 const form = ref({
   email: '',
@@ -80,15 +75,10 @@ const form = ref({
 const errorMessage = ref('')
 
 const handleRegister = async () => {
-  await register(form.value)
+  try {
+    await register(form.value)
+  } catch (error) {
+    errorMessage.value = error.response?.data?.message || 'Erreur lors de l\'inscription. Veuillez réessayer.'
+  }
 }
-
-// onMounted(async () => {
-//   const response = await axios.post(`${apiUrl}/register`);
-//   console.log(form.value);
-
-
-//   console.log(response);
-
-// })
 </script>

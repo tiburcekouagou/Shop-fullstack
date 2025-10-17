@@ -86,17 +86,16 @@ const form = ref({ id: null, title: '', description: '' })
 
 // Charger les catégories
 const fetchCategories = async () => {
-  console.log('Récup des données... !!')
 }
 
 // Sauvegarder ou modifier
 const saveCategory = async () => {
-  
+
 }
 
 // Supprimer
 const deleteCategory = async (id) => {
- 
+
 }
 
 // Éditer
