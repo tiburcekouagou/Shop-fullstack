@@ -54,7 +54,6 @@ async function createRefreshToken(userId, userAgent) {
  * @returns temps en millisecondes
  */
 function timeToMs(time) {
-  console.log("Converting time:", time);
   // 15m, 30d, 1h
   if (time.endsWith("d")) return parseInt(time) * 24 * 60 * 60 * 1000; // jours
   if (time.endsWith("h")) return parseInt(time) * 60 * 60 * 1000;
@@ -64,7 +63,7 @@ function timeToMs(time) {
 
 async function renewRefreshToken(jti, token) {
   // vérifier si le jti exist dans la BDD
-  const rt = RefreshToken.findOne({ jti });
+  const rt = await RefreshToken.findOne({ jti });
 
   // si le token n'existe pas ou a été révoqué
   if (!rt || rt.revoked) throw new Error("Token invalide");

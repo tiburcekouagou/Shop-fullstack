@@ -17,7 +17,7 @@ const config = require("../config/index.js");
 const register = async (req, res) => {
   // Récupérer les données du formulaire
 
-  const { email, username, password } = await req.body;
+  const { email, username, password } = req.body;
 
   // Vérifier que tous les champs sont remplis
   if (!email || !username || !password) {
